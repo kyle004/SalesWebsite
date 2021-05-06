@@ -1,0 +1,455 @@
+* {
+  font-family: 'Oswald', sans-serif;
+}
+
+$textColor: #444444;
+$gray: #bbb;
+$bg: whitesmoke;
+$pgb: #42c8cb;
+$pgt: #6bffc8;
+$dot: #349a98;
+$bgb: #ff4164;
+$bgt: #ff886b;
+$bdot1: #59e8c8;
+$bdot2: #ffee71;
+$bdot3: #6654af;
+$bdot4: #343434;
+$bdot5: #dfdfdf;
+$star: #fe6067;
+$discount: #fe6168;
+@mixin bp($bp, $min-max: min-width) {
+  $em: $bp/16;
+  @media(#{$min-max}: #{$em}em) {
+    @content;
+  }
+}
+
+body {
+  background-color: $bg;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  color: $textColor;
+}
+
+.container {
+  margin: 30px;
+  width: 100%;
+  max-width: 900px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+h5 {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 14px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $gray;
+}
+
+.product {
+  &-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, $pgt 0%, $pgb 100%);
+    border-radius: 20px 20px 0 0;
+    padding: 55px 0;
+    width: 100%;
+    margin: auto;
+  }
+  &-pic {
+    max-width: 180px;
+    position: relative;
+    left: 0;
+    margin: 40px 0;
+    filter: drop-shadow(-6px 40px 23px rgba(black, 0.5));
+  }
+  &-details {
+    padding: 40px;
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    .title {
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .colorCat {
+      text-transform: uppercase;
+      font-style: italic;
+      color: $gray;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .price {
+      font-weight: 700;
+      margin-top: 5px;
+      font-size: 18px;
+      .current {
+        color: $discount;
+        margin-left: 6px;
+      }
+    }
+    .before {
+      text-decoration: line-through;
+    }
+    header {
+      margin-bottom: 50px;
+      position: relative;
+    }
+    article {
+      >h5 {
+        margin: 0;
+      }
+      >p {
+        color: $gray;
+        margin: .5em 0;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    }
+    .controls {
+      margin: 3em 0;
+      >div {
+        flex: 1;
+      }
+      .option {
+        margin-top: 12px;
+        display: inline-block;
+        position: relative;
+        &:hover {
+          color: $textColor;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          border-width: 2px 2px 0 0;
+          border-style: solid;
+          top: 0;
+          bottom: 0;
+          height: 5px;
+          width: 5px;
+          right: -18px;
+          margin: auto;
+          transform: rotate(135deg);
+        }
+      }
+      >div+div {
+        margin-top: 20px;
+        flex: none;
+      }
+      ul {
+        display: flex;
+        margin: 15px 5px;
+      }
+    }
+    .color li+li {
+      margin-left: 15px;
+    }
+    .colors {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: block;
+    }
+    $colors-list: $bdot1 $bdot2 $bdot3 $bdot4 $bdot5;
+    @each $current-color in $colors-list {
+      $i: index($colors-list, $current-color);
+      .color-bdot#{$i} {
+        background-color: $current-color;
+        &:hover, &.active {
+          box-shadow: 0 0 0 3px white, 0 0 0 5px $current-color;
+        }
+      }
+    }
+    .rate {
+      position: static;
+      margin-top: 10px;
+      a {
+        font-size: 18px;
+        color: $gray;
+        &.active, &:hover {
+          color: $star;
+        }
+      }
+    }
+  }
+}
+
+.dots {
+  display: flex;
+  margin-top: 40px;
+  >a {
+    background-color: $dot;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+    &:hover, &.active {
+      background-color: white;
+    }
+  }
+  i {
+    display: none;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  >button {
+    display: flex;
+    border: 0;
+    padding: 15px 25px;
+    align-items: center;
+    border-radius: 7px;
+    cursor: pointer;
+    background: linear-gradient(to bottom, $bgt 0%, $bgb 100%);
+    box-shadow: 0 10px 30px 0 rgba($bgt, 0.7);
+    transition: 200ms;
+    &:hover {
+      background: linear-gradient(to bottom, $bgb 0%, $bgt 100%);
+    }
+    >img {
+      width: 31px;
+    }
+    >span {
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-left: 10px;
+      color: white;
+    }
+  }
+  >a {
+    img {
+      width: 24px;
+      opacity: .8;
+    }
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include bp(600) {
+  .product-details {
+    .rate {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      margin-top: 0;
+    }
+    .controls>div {
+      &.qty {
+        width: 60px;
+      }
+    }
+    .controls>div+div {
+      border-left: 2px solid rgba($gray, .5);
+      padding-left: 25px;
+      padding-right: 25px;
+      width: 100px;
+      margin-top: 0;
+    }
+    .controls {
+      display: flex;
+    }
+  }
+}
+
+@include bp(900) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: normal;
+    margin: auto;
+  }
+  .product-image {
+    border-radius: 20px 0 0 20px;
+    max-width: 330px;
+  }
+  .product-pic {
+    left: -40px;
+    max-width: 330px;
+  }
+  .product-details {
+    width: 100%;
+    border-radius: 0 20px 20px 0;
+  }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 30px;
+  color: #777;
+  background: #0CF;
+}
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea, #contact button[type="submit"] {
+  font: 400 12px/16px "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+#contact {
+  background: #F9F9F9;
+  padding: 25px;
+  margin: 2000px 0;
+}
+
+#contact h3 {
+  color: #F96;
+  display: block;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+#contact h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea {
+  width: 100%;
+  border: 1px solid #CCC;
+  background: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#contact input[type="text"]:hover, #contact input[type="email"]:hover, #contact input[type="tel"]:hover, #contact input[type="url"]:hover, #contact textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #AAA;
+}
+
+#contact textarea {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+#contact button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #0CF;
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#contact button[type="submit"]:hover {
+  background: #09C;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#contact input:focus, #contact textarea:focus {
+  outline: 0;
+  border: 1px solid #999;
+}
+
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  /* Set the navbar to fixed position */
+  top: 0;
+  /* Position the navbar at the top of the page */
+  width: 100%;
+  /* Full width */
+}
+
+/* Links inside the navbar */
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+/* Main content */
+
+.main {
+  margin-top: 20px;
+  margin-right: 30px;
+  /* Add a top margin to avoid content overlay */
+}
